@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<messages>
+ 
+  <!--General Responses-->
+  <response code = "0"/>
+  <response code ="1">
+    <dataelement dataelementproperty ="?"/>
+    <dataelement dataelementproperty ="?"/>
+  </response>
+  <response code ="-1">
+      <error message ="Exception occured"/>
+  </response>  
+
+  <!--LogIn Responses-->
+  <login username ="personUserName" password ="#PASSWORD_HASH#"/>
+  <response code ="0">
+    <reply message ="login successful"/>
+  </response>
+  <response code ="-1">
+      <error message ="UserName or PassWord incorrect"/>
+  </response>
+  <do code ="1" send ="chat history" />
+  <do code ="2" send ="members status"/>
+  
+  <!--Registration-->
+  <registration/>
+  <requiredregister fullname ="personFullName" username ="personUserName" password ="#PASSWORD_HASH#" email ="email_id"/>
+  <optionalregister age ="userAge" picture ="userpic.type" />
+  <response code ="0">
+    <reply message="registration successful"/>
+  </response>
+  <response code ="1">
+    <reply message ="Awaiting confirmation"/>
+  </response>
+  <response code ="-1">
+    <error message ="Username already exists"/>
+  </response>
+  <response code ="-2">
+    <erro message ="picture size too big"/>
+  </response>
+  <response code ="-3">
+    <reply message ="required fields leftout" />
+  </response>
+  <respons code ="-4">
+    <error message ="Invalid Email adress"/>
+  </respons>
+  <response code ="-5">
+    <error message ="Password too short"/>
+  </response>
+  <response code ="-6">
+    <error message ="Invalid userName chosen"/>
+  </response>
+  
+  
+  <!--Querying room available-->
+  <queryroom room ="roomName"/>
+  <queryroom chat ="username"/>
+  <queryroom room ="roomName" chat ="userName"/>
+  <response code ="0">
+    <reply message ="connecting..."/>
+  </response>
+  <response code ="1">
+    <room name ="Individual chat" privacy ="true"/>
+    <room name = "The room name" privacy ="true/false"/>
+    <room name ="General Chat" privacy =" false"/>
+  </response>
+
+  <!--Joining a Room-->
+  <joinrrom room="the room name"/>
+  <joinroom room ="the room name" password ="#PASSWORD_HASH#"/>
+  <response code ="0"/>
+  <response code = "-1" >
+    <error message ="Do not have permission to access room"/>
+  </response>
+  <response code ="-2">
+    <error message ="Other User denied request"/>
+  </response>
+
+  <!--Querying Users and/or Groups-->
+  <queryusers/>
+  <response code="0"/>
+  <response code ="1">
+    <user name ="clinton" role ="admin"/>
+    <user name ="someoneElse1" role ="moderator"/>
+    <user name ="userName" role ="user"/>
+  </response>
+  <response code ="2">
+    <reply message ="Awaiting confirmation"/>
+  </response>
+  <response code ="-1">
+    <error message ="User does not share privacy with you"/>
+  </response>
+  <response code ="-2">
+    <error message ="user blocked you"/>
+  </response>
+
+  <!--Send Messages to Group and/or Individuals-->
+  <Textmessages/>
+  <textmessage text ="message from sender here" sender ="UsernameofSender" recepient ="UsernameofRecepient" />
+  <response code ="0"/>
+  <response code ="-1">
+    <error message ="User Unavailable"/>
+  </response>
+  <response code ="-2">
+    <error message ="User left Chat Room"/>
+  </response>
+  <response code ="-3">
+    <error messgage ="Removed from Chat Room"/>
+  </response>
+
+  <!--creating a sub-group-->
+  <creategroup/>
+  <group groupname ="the group name" privacy ="true/false" members ="membersnames"/>
+  <response code ="0"/>
+  <response code ="1">
+    <reply message ="Awaiting confirmation"/>
+  </response>
+  <response code ="-1">
+    <error message ="Not enough priviledges"/>
+  </response>
+  <response code ="-2">
+    <error message ="Group with group name exists already"/>
+  </response>
+  <response code ="-3">
+    <error message = "username does not allow public groups"/>  
+  </response>
+  
+  <!--Notifications from server-->
+  <chatupdate text ="New message received"/>
+  <userjoin user ="userName" text ="userName is online">
+    <do code ="1" send ="notification"/>
+  </userjoin>
+  <userleft user ="userName" text ="userName is ofline">
+    <do code ="1" send ="notification"/>
+  </userleft>
+  <removed text ="Inappropriate messages" level ="high/low"/>
+
+  <!--ChatStatus changed-->
+  <status user ="userName" option ="online/away/offline/asleep/privacy"/>
+  <response code ="1">
+    <reply message ="changed to online/away/offline/asleep/privacy"/>
+    <do change ="status" message ="notify everybody"/>
+  </response>
+
+  <!--Updating profile-->
+  <profileupdate/>
+  <do change ="profile updates" send ="new profile" />
+  <response>
+    <reply message ="Profile updated successfully" /> 
+  </response> 
+    
+
+  <!--Viewing Profile of you or someone else-->
+  <profileview user ="userName/Personal"/>
+  <do code ="1" check ="permissions" />
+  <do code ="2" send ="profile of userName"/>
+  <response code ="-1">
+    <error message ="User does not share information with you"/>
+  </response>
+  <response code ="-2">
+    <error message ="profile not found"/>
+  </response>
+
+  <!--Message sent status-->
+  <messagestatus text ="message to send" user ="userName" room ="roomName"/>
+  <do send ="textmessage" check ="permissions"/>
+  <response code ="1">
+    <reply message ="sent successfully"/>
+  </response>
+  <response code ="-1">
+    <reply message ="Unavailable at the moment"/>
+  </response>
+  <response code ="-2">
+    <error message ="could not send message"/>
+  </response>
+
+  <!--Sending picture or file messages-->
+  <sendfile name ="filename" size ="filesize" recipient ="userName2" sender ="userName1"/>
+  <do check ="size" />
+  <response code ="0">
+    <reply message ="successful"/>
+  </response>
+  <response code ="-1">
+    <error message ="User offline"/>
+  </response>
+  <response code ="-2">
+    <error message ="File size too big"/>
+  </response>
+  
+  <!--Deleting account-->
+  <deleteaccount/>
+  <response code ="1">
+    <reply message ="ask for confirmation"/>
+  </response>
+  <response code ="2">
+    <reply message ="Account deleted"/>
+  </response>
+
+  <!--Leaving a room-->
+  <leave/>
+  <response code ="1">
+    <reply message ="ask for confirmation"/>
+  </response>
+  <response code ="2">
+    <reply message ="left group roomName"/>
+  </response>
+
+  <!--Blocking a user-->
+  <blockuser username ="name of user to block" text ="reason"/>
+  <response code ="1">
+    <reply message ="ask for confirmation"/>
+  </response>
+  <response code ="2">
+    <reply message ="blocked user"/>
+    <do send ="message to blocked user" text ="reason"/>
+  </response>
+
+  <!--Birthday notification-->
+  <birthdays age ="userAge" user ="userName" date ="day of birthday"/>
+  <do code ="1" send ="notification to all friends" />
+  <do code ="2" send ="append small icon to profile" />
+
+  <!--Personal message status-->
+  <mood/>
+  <do change ="personal status"/>
+  <response code ="0">
+    <reply message="successful"/>
+  </response>
+
+</messages>
+
+
+ 
